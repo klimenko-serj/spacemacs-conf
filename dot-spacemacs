@@ -214,6 +214,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq clojure-enable-fancify-symbols t)
+  (global-centered-cursor-mode)
   (add-hook 'clojure-mode-hook
             (lambda ()
               (local-set-key (kbd "M-(") 'paredit-wrap-round)
@@ -221,6 +222,8 @@ you should place your code here."
               (local-set-key (kbd "M-{") 'paredit-wrap-curly)
 
               (local-set-key (kbd "C-(") 'sp-rewrap-sexp)
+
+              (define-key evil-normal-state-map  (kbd "<escape>") 'evil-lisp-state)
               ))
 
   )
