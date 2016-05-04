@@ -213,8 +213,16 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq clojure-enable-fancify-symbols t)
   (global-centered-cursor-mode)
+
+
+  ;; Clojure
+  (setq clojure-enable-fancify-symbols t)
+
+  (define-clojure-indent
+    (-> 1)
+    (->> 1))
+
   (add-hook 'clojure-mode-hook
             (lambda ()
               (local-set-key (kbd "M-(") 'paredit-wrap-round)
