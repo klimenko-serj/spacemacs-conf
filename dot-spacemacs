@@ -218,7 +218,10 @@ you should place your code here."
             (lambda ()
               (local-set-key (kbd "M-(") 'paredit-wrap-round)
               (local-set-key (kbd "M-[") 'paredit-wrap-square)
-              (local-set-key (kbd "M-{") 'paredit-wrap-curly)))
+              (local-set-key (kbd "M-{") 'paredit-wrap-curly)
+
+              (local-set-key (kbd "C-(") 'sp-rewrap-sexp)
+              ))
 
   )
 
