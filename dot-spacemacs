@@ -219,6 +219,7 @@ you should place your code here."
   ;; Clojure
   (setq clojure-enable-fancify-symbols t)
 
+  (require 'clojure-mode)
   (define-clojure-indent
     (-> 1)
     (->> 1))
