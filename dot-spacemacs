@@ -28,6 +28,7 @@ values."
      org
 
      ;;LANGs
+     html
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
      javascript
@@ -215,7 +216,6 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (global-centered-cursor-mode)
 
-
   ;; Clojure
   (setq clojure-enable-fancify-symbols t)
 
@@ -223,6 +223,7 @@ you should place your code here."
   (define-clojure-indent
     (-> 1)
     (->> 1))
+
 
   (add-hook 'clojure-mode-hook
             (lambda ()
