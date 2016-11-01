@@ -88,7 +88,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(deeper-blue
+                         spacemacs-dark
                          spacemacs-light
                          solarized-light
                          solarized-dark
@@ -207,6 +208,19 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
+(defun lisp-editing-keybindings ()
+  (require 'paredit)
+  (local-set-key (kbd "M-(") 'paredit-wrap-round)
+  (local-set-key (kbd "M-[") 'paredit-wrap-square)
+  (local-set-key (kbd "M-{") 'paredit-wrap-curly)
+
+  (local-set-key (kbd "C-<left>") 'paredit-backward)
+  (local-set-key (kbd "C-<right>") 'sp-next-sexp)
+  (local-set-key (kbd "C-<up>") 'paredit-backward-up)
+  (local-set-key (kbd "C-<down>") 'paredit-forward-down)
+
+  (define-key evil-normal-state-map  (kbd "<escape>") 'evil-lisp-state))
+
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -224,19 +238,27 @@ you should place your code here."
     (-> 1)
     (->> 1))
 
-
-  (add-hook 'clojure-mode-hook
-            (lambda ()
-              (local-set-key (kbd "M-(") 'paredit-wrap-round)
-              (local-set-key (kbd "M-[") 'paredit-wrap-square)
-              (local-set-key (kbd "M-{") 'paredit-wrap-curly)
-
-              (local-set-key (kbd "C-(") 'sp-rewrap-sexp)
-
-              (define-key evil-normal-state-map  (kbd "<escape>") 'evil-lisp-state)
-              ))
+  (define-key evil-lisp-state-map (kbd "x") 'evil-delete-char)
+  (add-hook 'clojure-mode-hook #'lisp-editing-keybindings)
+  (add-hook 'emacs-lisp-mode-hook #'lisp-editing-keybindings)
+  (add-hook 'cider-repl-mode-hook #'(lambda ()
+                                      (smartparens-mode t)
+                                      (lisp-editing-keybindings)))
 
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(display-buffer-reuse-frames nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
